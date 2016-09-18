@@ -10,7 +10,12 @@ const lookup  = require('nyks/require/lookup');
 
 module.exports = function(nodes) {
 
-  forOwn(nodes, function(node) {
+  forOwn(nodes, function(node, id) {
+    if(node.dedupeIndex) {
+      nodes[id] = nodes[node.dedupeIndex];
+      return;
+    }
+
     var module = lookup(node.file);
     node.module_name = `${module.name}-${module.version}`;
     node.module = module;
@@ -37,6 +42,7 @@ module.exports = function(nodes) {
     if(!node.entry) //only care for entry node
       return;
     var tmp = scan(node.id, []);
+
     out.children.push(node.module.tree);
   });
 
@@ -46,8 +52,9 @@ module.exports = function(nodes) {
   function scan(id, paths) {
     var node = nodes[id];
 
-    if(paths.indexOf(id) !== -1 || node.mapped)
+    if(!node || paths.indexOf(id) !== -1 || node.mapped)
       return node.module.tree;
+
 
     paths.push(id);
     node.mapped = true;
@@ -57,8 +64,14 @@ module.exports = function(nodes) {
     console.log("Scanning", id, node.file);
     forOwn(node.deps, function(childId) {
       var subtree = scan(childId, paths);
-      if(subtree != node.module.tree && node.module.tree.children[1].children.indexOf(subtree) == -1)
-        node.module.tree.children[1].children.push(subtree);
+
+      if(subtree.registered || subtree == node.module.tree || node.module.tree.children[1].children.indexOf(subtree) != -1)
+        return;
+
+      subtree.registered = true;
+
+      node.module.tree.children[1].children.push(subtree);
+
     });
 
     return node.module.tree;
