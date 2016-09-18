@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/131/discify/issues"
   },
-  "homepage": "https://github.com/131/discify"
+  "homepage": "https://github.com/131/discify",
+  "dependencies": {
+    "browserify": "^13.0.0",
+    "concat-stream": "^1.5.2",
+    "d3": "^3.5.17"
+  }
 }
