@@ -1,8 +1,10 @@
 "use strict";
 
-
 const merge = require('mout/object/merge');
 const fs   = require('fs');
+const untree = require('./untree');
+const graph = require('./graph');
+
 var combineSourceMap = require('combine-source-map');
 
 module.exports = function(b) {
@@ -14,6 +16,14 @@ module.exports = function(b) {
       console.log("Wrote map");
       fs.writeFileSync('map.json', JSON.stringify(versions, null, 2));
       fs.writeFileSync('map2.json', JSON.stringify(deps, null, 2));
+
+      deps = untree(deps);
+      fs.writeFileSync('map3.json', JSON.stringify(deps, null, 2));
+
+      graph(deps, function(err, body){
+        fs.writeFileSync('map.html', body);
+      });
+
     });
   });
 
