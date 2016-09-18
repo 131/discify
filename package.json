@@ -1,0 +1,24 @@
+{
+  "name": "discify",
+  "version": "1.0.0",
+  "description": "A browserify plugin to analyse bundle statistics",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:131/discify.git"
+  },
+  "keywords": [
+    "browserify",
+    "disc",
+    "discify"
+  ],
+  "author": "Francois Leurent <131.js@cloudyks.org>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/131/discify/issues"
+  },
+  "homepage": "https://github.com/131/discify"
+}
