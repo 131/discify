@@ -1,6 +1,6 @@
 "use strict";
 
-const d3 = require('./d3.v3.min');
+const d3 = require('d3');
 
 const width = 750;
 const height = 600;

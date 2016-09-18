@@ -23,9 +23,7 @@ module.exports = function(data, chain){
 
   browser(function(err, code){
 
-    var script = ` ${code}; 
-
-        discify( ${JSON.stringify(data)} , document.body);`;
+    var script = `${code}; discify( ${JSON.stringify(data)} , document.body);`;
 
     template = template.replace(/&script;/, script);
     template = template.replace(/&style;/, style);
