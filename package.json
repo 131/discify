@@ -1,6 +1,6 @@
 {
   "name": "discify",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A browserify plugin to analyse bundle statistics",
   "main": "index.js",
   "scripts": {
