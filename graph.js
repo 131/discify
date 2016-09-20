@@ -23,13 +23,14 @@ function browser(chain) {
 module.exports = function(data, chain){
 
   browser(function(err, code){
-
     var script = `${code}; discify( ${JSON.stringify(data)} , document.body);`;
 
-    template = template.replace(/&script;/, script);
-    template = template.replace(/&style;/, style);
+    var body  = template;
 
-    chain(null, template);
+    body = body.replace(/&script;/, script);
+    body = body.replace(/&style;/, style);
+
+    chain(null, body);
     
   })
 

@@ -8,9 +8,12 @@ const path   = require('path');
 const lookup  = require('nyks/require/lookup');
 
 
+
+
 module.exports = function(nodes) {
 
   forOwn(nodes, function(node, id) {
+
     if(node.dedupeIndex) {
       nodes[id] = nodes[node.dedupeIndex];
       return;
@@ -61,7 +64,7 @@ module.exports = function(nodes) {
 
     node.module.tree.children[0].size += node.size;
 
-    console.log("Scanning", id, node.file);
+    //console.log("Scanning", id, node.file);
     forOwn(node.deps, function(childId) {
       var subtree = scan(childId, paths);
 

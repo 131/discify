@@ -27,15 +27,16 @@ module.exports = function(b) {
       //deps contain un-processed module dependencies from browserify
       deps = untree(deps);
       fs.writeFileSync(path.join(outdir, 'graph.json'), JSON.stringify(deps, null, 2));
-
+      
       graph(deps, function(err, body) {
+        deps = {}; //reset dependency graph until next round
         fs.writeFileSync(path.join(outdir, 'map.html'), body);
       });
 
     });
   });
 
-  b.on("dep", function(dep){
+  b.on("dep", function(dep) {
     var out = merge({}, dep);
     deps[out.id] = out;
     out.size = combineSourceMap.removeComments(out.source).length;
