@@ -55,6 +55,8 @@ module.exports = function(nodes) {
   function scan(id, paths) {
     var node = nodes[id];
 
+    if(!node)
+      return {};
     if(!node || paths.indexOf(id) !== -1 || node.mapped)
       return node.module.tree;
 
