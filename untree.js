@@ -7,7 +7,7 @@ const path   = require('path');
 
 const lookup  = require('nyks/require/lookup');
 
-
+var sym_registered = Symbol("registered");
 
 
 module.exports = function(nodes) {
@@ -25,6 +25,7 @@ module.exports = function(nodes) {
 
     if(!module.tree)
       module.tree = {
+        //[sym_registered] : false,
         name     : node.module_name,
         children : [
           {
@@ -70,10 +71,10 @@ module.exports = function(nodes) {
     forOwn(node.deps, function(childId) {
       var subtree = scan(childId, paths);
 
-      if(!subtree || subtree.registered || subtree == node.module.tree || node.module.tree.children[1].children.indexOf(subtree) != -1)
+      if(!subtree || subtree[sym_registered] || subtree == node.module.tree || node.module.tree.children[1].children.indexOf(subtree) != -1)
         return;
 
-      subtree.registered = true;
+      subtree[sym_registered] = true;
 
       node.module.tree.children[1].children.push(subtree);
 
