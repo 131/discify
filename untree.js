@@ -56,7 +56,7 @@ module.exports = function(nodes) {
     var node = nodes[id];
 
     if(!node)
-      return {};
+      return;
     if(!node || paths.indexOf(id) !== -1 || node.mapped)
       return node.module.tree;
 
@@ -70,7 +70,7 @@ module.exports = function(nodes) {
     forOwn(node.deps, function(childId) {
       var subtree = scan(childId, paths);
 
-      if(subtree.registered || subtree == node.module.tree || node.module.tree.children[1].children.indexOf(subtree) != -1)
+      if(!subtree || subtree.registered || subtree == node.module.tree || node.module.tree.children[1].children.indexOf(subtree) != -1)
         return;
 
       subtree.registered = true;
