@@ -8,6 +8,10 @@ const combineSourceMap = require('combine-source-map');
 const mkdirpSync       = require('nyks/fs/mkdirpSync');
 
 const untree = require('./untree');
+const console = {
+  log : require('debug')('discify')
+};
+
 const graph  = require('./graph');
 
 

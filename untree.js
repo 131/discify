@@ -66,7 +66,7 @@ module.exports = function(nodes) {
 
     node.module.tree.children[0].size += node.size;
 
-    //console.log("Scanning", id, node.file);
+    //console.error("Scanning", id, node.file);
     forOwn(node.deps, function(childId) {
       var subtree = scan(childId, paths);
 
