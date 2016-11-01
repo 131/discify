@@ -43,7 +43,7 @@ module.exports = function(nodes) {
   var out = {name:"root", children : []};
 
   forOwn(nodes, function(node) {
-    if(!node.entry) //only care for entry node
+    if(! ( node.entry || node.expose) ) //only care for entry node
       return;
     var tmp = scan(node.id, []);
 
