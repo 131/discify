@@ -5,26 +5,19 @@ const startsWith = require('mout/string/startsWith');
 const forOwn = require('mout/object/forOwn');
 const path   = require('path');
 
-const lookup  = require('nyks/require/lookup');
+
 
 var sym_registered = Symbol("registered");
 
 
 module.exports = function(nodes) {
 
-  forOwn(nodes, function(node, id) {
-
-    if(node.dedupeIndex) {
-      nodes[id] = nodes[node.dedupeIndex];
+  var modules = {};
+  forOwn(nodes, (node) => {
+    if(modules[node.module_name])
       return;
-    }
-
-    var module = lookup(node.file);
-    node.module_name = `${module.name}-${module.version}`;
-    node.module = module;
-
-    if(!module.tree)
-      module.tree = {
+    modules[node.module_name] = {
+      tree : {
         //[sym_registered] : false,
         name     : node.module_name,
         children : [
@@ -37,20 +30,31 @@ module.exports = function(nodes) {
             children : []
           },
         ]
-      };
+      }
+    }
   });
 
-  var out = {name:"root", children : []};
+  var graph = {name:"root", children : []};
+
+  forOwn(nodes, function(node, id) {
+    if(node.dedupeIndex) {
+      nodes[id] = nodes[node.dedupeIndex];
+      return;
+    }
+    node.module = modules[node.module_name];
+  });
+
 
   forOwn(nodes, function(node) {
     if(! ( node.entry || node.expose) ) //only care for entry node
       return;
-    var tmp = scan(node.id, []);
 
-    out.children.push(node.module.tree);
+    scan(node.id, []);
+
+    graph.children.push(node.module.tree);
   });
 
-  return out;
+  return graph;
 
 
   function scan(id, paths) {
@@ -58,7 +62,8 @@ module.exports = function(nodes) {
 
     if(!node)
       return;
-    if(!node || paths.indexOf(id) !== -1 || node.mapped)
+
+    if(paths.indexOf(id) !== -1 || node.mapped)
       return node.module.tree;
 
 

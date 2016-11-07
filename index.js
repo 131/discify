@@ -6,6 +6,9 @@ const path   = require('path');
 const merge            = require('mout/object/merge');
 const combineSourceMap = require('combine-source-map');
 const mkdirpSync       = require('nyks/fs/mkdirpSync');
+const lookup           = require('nyks/require/lookup');
+const forOwn           = require('mout/object/forOwn');
+const isFileSync       = require('nyks/fs/isFileSync');
 
 const untree = require('./untree');
 const console = {
@@ -28,6 +31,16 @@ module.exports = function(b) {
       fs.writeFileSync(path.join(outdir, 'packages.json'), JSON.stringify(versions, null, 2));
       fs.writeFileSync(path.join(outdir, 'browserify-deps.json'), JSON.stringify(deps, null, 2));
 
+        //discify.io doesn't need to know about your fs
+      forOwn(deps, (node) => {
+        if(node.expose && !isFileSync(node.file))
+          node.file = require.resolve(node.file);
+        var module = lookup(node.file);
+        node.module_name = `${module.name}-${module.version}`;
+        delete node.file;
+      });
+
+      fs.writeFileSync(path.join(outdir, 'deps.json'), JSON.stringify(deps, null, 2));
       //deps contain un-processed module dependencies from browserify
       deps = untree(deps);
       fs.writeFileSync(path.join(outdir, 'graph.json'), JSON.stringify(deps, null, 2));
