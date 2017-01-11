@@ -10,12 +10,14 @@
 * a /disc/index.html standalone, neat, manually crafter repport HTML graph
 * a /disc/map.json file with also usefull informations
 
-# API/usage
+# API/usage  & options
 ```
 npm install --save-dev discify
 browserify --node -p discify entry.js
-# enjoy your /disc folder
+# enjoy your /disc folder (you can specify output folder via -p [ discify --outdir some/other/dir ] )
 ```
+
+
 
 # disc VS discify
 * Simplier workflow ; as discify is a plugin, it access live and raw from browserify and does not need a dedicated "useFullPath"

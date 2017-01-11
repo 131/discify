@@ -18,10 +18,15 @@ const console = {
 const graph  = require('./graph');
 
 
-module.exports = function(b) {
+module.exports = function(b, opts) {
+
   var versions = {}, deps = {};
 
-  var outdir = mkdirpSync("disc");
+  opts = Object.assign({
+      outdir : 'disc'
+  }, opts);
+
+  var outdir = mkdirpSync(opts.outdir);
 
   b.on("bundle", function(stream) {
 
