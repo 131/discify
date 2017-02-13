@@ -53,6 +53,7 @@ module.exports = function(b, opts) {
       graph(deps, function(err, body) {
         deps = {}; //reset dependency graph until next round
         fs.writeFileSync(path.join(outdir, 'map.html'), body);
+        b.emit("discified");
       });
 
     });

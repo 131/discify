@@ -17,6 +17,16 @@ browserify --node -p discify entry.js
 # enjoy your /disc folder (you can specify output folder via -p [ discify --outdir some/other/dir ] )
 ```
 
+## Advanced pipe
+```
+ var b = browserify({
+     //opts
+    });
+    b.plugin(discify)
+    b.once('discified', Function.prototype); //this is emitted once discify has done generating maps & stuffs
+```
+
+
 
 
 # disc VS discify
