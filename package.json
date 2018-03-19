@@ -22,13 +22,13 @@
   },
   "homepage": "https://github.com/131/discify",
   "dependencies": {
-    "browserify": "^13.0.0",
-    "browserify-wrap": "^1.0.1",
+    "browserify": "^16.1.0",
+    "browserify-wrap": "^1.0.2",
     "combine-source-map": "^0.7.2",
     "concat-stream": "^1.5.2",
     "d3": "^3.5.17",
-    "debug": "^2.2.0",
-    "mout": "^1.1.0",
+    "debug": "^2.3.2",
+    "mout": "^1.0.0",
     "nyks": "^5.2.3"
   },
   "devDependencies": {
