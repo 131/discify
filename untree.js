@@ -1,14 +1,7 @@
 "use strict";
 
-
-const startsWith = require('mout/string/startsWith');
 const forOwn = require('mout/object/forOwn');
-const path   = require('path');
-
-
-
-var sym_registered = Symbol("registered");
-
+const sym_registered = Symbol("registered");
 
 module.exports = function(nodes) {
 
@@ -22,19 +15,19 @@ module.exports = function(nodes) {
         name     : node.module_name,
         children : [
           {
-            "name": "files",
+            "name" : "files",
             "size" : 0,
           },
           {
-            "name": "node_modules",
+            "name" : "node_modules",
             children : []
           },
         ]
       }
-    }
+    };
   });
 
-  var graph = {name:"root", children : []};
+  var graph = {name : "root", children : []};
 
   forOwn(nodes, function(node, id) {
     if(node.dedupeIndex) {
@@ -46,7 +39,7 @@ module.exports = function(nodes) {
 
 
   forOwn(nodes, function(node) {
-    if(! ( node.entry || node.expose) ) //only care for entry node
+    if(!(node.entry || node.expose)) //only care for entry node
       return;
 
     scan(node.id, []);
@@ -88,4 +81,4 @@ module.exports = function(nodes) {
     return node.module.tree;
   }
 
-}
+};

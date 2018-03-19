@@ -13,7 +13,7 @@ var template = fs.readFileSync(path.join(__dirname, 'html/index.html'), 'utf-8')
 
 
 
-module.exports = function(data, chain){
+module.exports = function(data, chain) {
 
   var standalone = "discify";
 

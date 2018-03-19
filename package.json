@@ -4,7 +4,7 @@
   "description": "A browserify plugin to analyse bundle statistics",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "eslint": "eslint index.js graph.js untree.js"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,9 @@
     "d3": "^3.5.17",
     "debug": "^2.2.0",
     "mout": "^1.1.0",
-    "nyks": "^3.1.0"
+    "nyks": "^5.2.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint-plugin-ivs": "^1.0.9"
+  }
 }

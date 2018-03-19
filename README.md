@@ -2,6 +2,8 @@
 
 [![Version](https://img.shields.io/npm/v/discify.svg)](https://www.npmjs.com/package/discify)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
+[![Code style](https://img.shields.io/badge/code%2fstyle-ivs-green.svg)](https://www.npmjs.com/package/eslint-plugin-ivs)
+
 
 ![tiny output demo](doc/disc.png)
 

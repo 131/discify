@@ -20,10 +20,11 @@ const graph  = require('./graph');
 
 module.exports = function(b, opts) {
 
-  var versions = {}, deps = {};
+  var versions = {};
+  var deps = {};
 
   opts = Object.assign({
-      outdir : 'disc'
+    outdir : 'disc'
   }, opts);
 
   var outdir = mkdirpSync(opts.outdir);
@@ -36,7 +37,7 @@ module.exports = function(b, opts) {
       fs.writeFileSync(path.join(outdir, 'packages.json'), JSON.stringify(versions, null, 2));
       fs.writeFileSync(path.join(outdir, 'browserify-deps.json'), JSON.stringify(deps, null, 2));
 
-        //discify.io doesn't need to know about your fs
+      //discify.io doesn't need to know about your fs
       forOwn(deps, (node) => {
         if(node.expose && !isFileSync(node.file))
           node.file = require.resolve(node.file);
@@ -49,7 +50,7 @@ module.exports = function(b, opts) {
       //deps contain un-processed module dependencies from browserify
       deps = untree(deps);
       fs.writeFileSync(path.join(outdir, 'graph.json'), JSON.stringify(deps, null, 2));
-      
+
       graph(deps, function(err, body) {
         deps = {}; //reset dependency graph until next round
         fs.writeFileSync(path.join(outdir, 'map.html'), body);
@@ -67,8 +68,8 @@ module.exports = function(b, opts) {
   });
 
   b.pipeline.on('package', function (pkg) {
-    if(!versions[pkg.name] )
-      versions[pkg.name] ={};
+    if(!versions[pkg.name])
+      versions[pkg.name] = {};
 
     if(!versions[pkg.name][pkg.version]) {
       versions[pkg.name][pkg.version] = [];
@@ -79,4 +80,4 @@ module.exports = function(b, opts) {
   });
 
 
-}
+};
