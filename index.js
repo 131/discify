@@ -10,13 +10,12 @@ const lookup           = require('nyks/require/lookup');
 const forOwn           = require('mout/object/forOwn');
 const isFileSync       = require('nyks/fs/isFileSync');
 
-const untree = require('./untree');
+const untree  = require('./untree');
 const console = {
   log : require('debug')('discify')
 };
 
 const graph  = require('./graph');
-
 
 module.exports = function(b, opts) {
 
@@ -29,8 +28,7 @@ module.exports = function(b, opts) {
 
   var outdir = mkdirpSync(opts.outdir);
 
-  b.on("bundle", function(stream) {
-
+  b.once("bundle", function(stream) {
     stream.once("end", function() {
       console.log("Wrote map");
 
